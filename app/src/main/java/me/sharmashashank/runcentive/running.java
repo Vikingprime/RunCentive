@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.security.Security;
@@ -27,6 +28,7 @@ public class running extends Activity implements LocationListener {
     LocationManager mLocationManager;
     private final static String TAG = running.class.getName();
     Handler mHandler;
+    TextView timerDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,7 @@ public class running extends Activity implements LocationListener {
         setContentView(R.layout.activity_running);
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location = null;
-        Log.d(TAG, "Inside onCreate");
+
         mHandler = new Handler(Looper.getMainLooper());
         try {
 
@@ -45,6 +47,33 @@ public class running extends Activity implements LocationListener {
             ex.printStackTrace();
         }
         //startClock(this);
+        Log.d(TAG, "Inside onCreate");
+        mHandler= new Handler(Looper.getMainLooper());
+        timerDisplay = (TextView) findViewById(R.id.timerTextView);
+
+        showTimer();
+
+
+       // startClock(this);
+    }
+
+    public void showTimer(){
+       final long startTimeTimer = System.currentTimeMillis();
+       Handler mClockHander = new Handler();
+        Runnable upDateTime = new Runnable(){
+            public void run(){
+                long timePassed = System.currentTimeMillis() - startTimeTimer;
+                int seconds = (int) (timePassed/1000);
+                int minutes = seconds/60;
+                seconds %= 60;
+
+                timerDisplay.setText(minutes +" : " + seconds);
+            }
+        };
+        upDateTime.run();
+        mClockHander.removeCallbacks(upDateTime);
+        mClockHander.postDelayed(upDateTime,500);
+
     }
 
 
@@ -77,43 +106,6 @@ public class running extends Activity implements LocationListener {
 
     };
 
-    public void startClock(final running runobj){
-
-        Runnable runnable=new Runnable() {
-            @Override
-            public void run() {
-                Looper.prepare();
-                try {
-                    while (!shouldStop) {
-                        try {
-                            mLocationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, runobj, null);
-                            final Location loc = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                            if (loc==null){
-                                return;
-                            }
-                            Log.d(TAG, loc.toString());
-                            mHandler.post(new Runnable() {
-                                public void run() {
-                                    Toast.makeText(
-                                            getApplicationContext(), loc.toString(),
-                                            Toast.LENGTH_LONG).show();
-                                }
-                            });
-
-                        }
-                        catch(SecurityException ex){
-                            Log.d(TAG, "User did not enable GPS");
-                        }
-                        //Thread.sleep(timeStep);
-                    }
-                } catch (InterruptedException ie) {
-                    ie.printStackTrace();
-                }
-            }
-        };
-        Thread thread = new Thread(runnable);
-        thread.start();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
