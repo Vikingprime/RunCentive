@@ -28,14 +28,7 @@ public class MainActivity extends Activity {
     private String getApiKey(){
         Context context=getApplicationContext();
         Bundle bundle=null;
-        try {
-             bundle = context.getPackageManager().
-                    getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA).metaData;
-        }
-        catch(Exception ex){
-            Log.d(TAG, "Cannot find the key");
-        }
-        return bundle.getString("capital_one_key", "");
+        return getResources().getString(R.string.capital_one_key);
     }
 
     @Override
