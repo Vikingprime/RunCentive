@@ -35,6 +35,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="me.sharmashashank.runcentive.MainActivity" />
         </activity>
+        <activity
+            android:name=".LocationUpdater"
+            android:label="@string/title_activity_location_updater"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 </manifest>

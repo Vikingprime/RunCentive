@@ -77,4 +77,8 @@ public class MainActivity extends Activity implements MoneyCallback {
         textView.setText(checkingBalance.toString());
         startRunButton.setClickable(true);
     }
+    public void mButtonIwillTakeOut(View view){
+        Intent intent = new Intent(this,LocationUpdater.class);
+        startActivity(intent);
+    }
 }

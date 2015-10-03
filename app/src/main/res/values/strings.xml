@@ -5,4 +5,5 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_running">running</string>
     <string name="title_activity_score_screen">ScoreScreen</string>
+    <string name="title_activity_location_updater">LocationUpdater</string>
 </resources>
