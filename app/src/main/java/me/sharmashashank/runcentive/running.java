@@ -35,6 +35,7 @@ public class running extends Activity implements LocationListener {
     boolean stillRunning=true;
     Location lastLocation;
     Double totalDistance=0.0;
+    double kilos = 70;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +112,12 @@ public class running extends Activity implements LocationListener {
                 double    latitude = location.getLatitude();
             if (lastLocation!=null){
                 totalDistance+=location.distanceTo(lastLocation);
+                double timedelta = System.currentTimeMillis()-startTimeTimer;
+                CaloriesBurned mCalories = new CaloriesBurned(kilos,(totalDistance/(timedelta*1000)),(timedelta/1000));
+                Double calories = mCalories.calcCalories();
+                TextView mView = (TextView) findViewById(R.id.caloriesburned);
+                mView.setText(calories.toString()+" calories burned");
+
             }
             lastLocation=location;
 

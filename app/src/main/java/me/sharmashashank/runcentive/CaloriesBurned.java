@@ -7,7 +7,7 @@ public class CaloriesBurned {
     private double mWeight;
     private double mSpeed;
     private double mTime;
-    public CaloriesBurned(double weightInKilos,float speed, double time){
+    public CaloriesBurned(double weightInKilos,double speed, double time){
         mWeight = weightInKilos;
         mSpeed = calcMph(speed);
         mTime = time;
