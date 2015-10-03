@@ -12,7 +12,7 @@ import com.reimaginebanking.api.java.NessieClient;
 public class MainActivity extends Activity {
 
     public static String TAG="MainActivity";
-    NessieClient nessieClient;
+    public static NessieWrapper nessieWrapper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +22,7 @@ public class MainActivity extends Activity {
     }
 
     public void initializeNessieClient(){
-        nessieClient = NessieClient.getInstance();
-        nessieClient.setAPIKey(getApiKey());
+        nessieWrapper=new NessieWrapper(getApiKey());
     }
 
     private String getApiKey(){
