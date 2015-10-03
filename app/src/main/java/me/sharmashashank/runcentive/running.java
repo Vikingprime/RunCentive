@@ -1,7 +1,9 @@
 package me.sharmashashank.runcentive;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -14,15 +16,17 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.security.Security;
 import java.util.Calendar;
+
 import android.os.Handler;
 
 public class running extends Activity implements LocationListener {
 
-    boolean shouldStop=false;
-    int timeStep=5000;
+    boolean shouldStop = false;
+    int timeStep = 5000;
     LocationManager mLocationManager;
-    private final static String TAG=running.class.getName();
+    private final static String TAG = running.class.getName();
     Handler mHandler;
     TextView timerDisplay;
 
@@ -31,14 +35,26 @@ public class running extends Activity implements LocationListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running);
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Location location=null;
+        Location location = null;
+
+        mHandler = new Handler(Looper.getMainLooper());
+        try {
+
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
+            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, mLocationListener);
+        }
+        catch(SecurityException ex){
+            ex.printStackTrace();
+        }
+        //startClock(this);
         Log.d(TAG, "Inside onCreate");
         mHandler= new Handler(Looper.getMainLooper());
         timerDisplay = (TextView) findViewById(R.id.timerTextView);
 
         showTimer();
 
-        startClock(this);
+
+       // startClock(this);
     }
 
     public void showTimer(){
@@ -61,43 +77,35 @@ public class running extends Activity implements LocationListener {
     }
 
 
+    private  LocationListener mLocationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(final Location location) {
+                Log.d("LocationListener", "NUJN");
+                double    longitude = location.getLongitude();
+                double    latitude = location.getLatitude();
 
-    public void startClock(final running runobj){
+            Toast.makeText(
+                    getApplicationContext(), latitude +" "+ longitude,
+                    Toast.LENGTH_LONG).show();
+        }
 
-        Runnable runnable=new Runnable() {
-            @Override
-            public void run() {
-                Looper.prepare();
-                try {
-                    while (!shouldStop) {
-                        try {
-                            mLocationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, runobj, null);
-                            final Location loc = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                            if (loc==null){
-                                return;
-                            }
-                            Log.d(TAG, loc.toString());
-                            mHandler.post(new Runnable() {
-                                public void run() {
-                                    Toast.makeText(
-                                            getApplicationContext(), loc.toString(),
-                                            Toast.LENGTH_LONG).show();
-                                }
-                            });
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
 
-                        }
-                        catch(SecurityException ex){
-                            Log.d(TAG, "User did not enable GPS");
-                        }
-                        Thread.sleep(timeStep);
-                    }
-                } catch (InterruptedException e) {
-                }
-            }
-        };
-        Thread thread = new Thread(runnable);
-        thread.start();
-    }
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+
+    };
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
