@@ -1,7 +1,9 @@
 package me.sharmashashank.runcentive;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -13,15 +15,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.security.Security;
 import java.util.Calendar;
+
 import android.os.Handler;
 
 public class running extends Activity implements LocationListener {
 
-    boolean shouldStop=false;
-    int timeStep=5000;
+    boolean shouldStop = false;
+    int timeStep = 5000;
     LocationManager mLocationManager;
-    private final static String TAG=running.class.getName();
+    private final static String TAG = running.class.getName();
     Handler mHandler;
 
     @Override
@@ -29,11 +33,49 @@ public class running extends Activity implements LocationListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running);
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Location location=null;
+        Location location = null;
         Log.d(TAG, "Inside onCreate");
-        mHandler= new Handler(Looper.getMainLooper());
-        startClock(this);
+        mHandler = new Handler(Looper.getMainLooper());
+        try {
+
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
+            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, mLocationListener);
+        }
+        catch(SecurityException ex){
+            ex.printStackTrace();
+        }
+        //startClock(this);
     }
+
+
+    private  LocationListener mLocationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(final Location location) {
+                Log.d("LocationListener", "NUJN");
+                double    longitude = location.getLongitude();
+                double    latitude = location.getLatitude();
+
+            Toast.makeText(
+                    getApplicationContext(), latitude +" "+ longitude,
+                    Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+
+    };
 
     public void startClock(final running runobj){
 
@@ -62,7 +104,7 @@ public class running extends Activity implements LocationListener {
                         catch(SecurityException ex){
                             Log.d(TAG, "User did not enable GPS");
                         }
-                        Thread.sleep(timeStep);
+                        //Thread.sleep(timeStep);
                     }
                 } catch (InterruptedException e) {
                 }
