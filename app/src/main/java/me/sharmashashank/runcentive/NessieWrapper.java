@@ -24,29 +24,31 @@ public class NessieWrapper {
         nessieClient=NessieClient.getInstance();
         nessieClient.setAPIKey(apiKey);
         Log.d(TAG,apiKey);
-        getAccounts();
     }
 
-    public void getAccounts(){
+    public void getAccounts(final MoneyCallback mCallback){
         nessieClient.getCustomerAccounts(testCustomer, new NessieResultsListener() {
             @Override
             public void onSuccess(Object o, NessieException e) {
-                if (e==null){
-                    ArrayList<Account> accounts=(ArrayList<Account>) o;
-                    for(Account acc: accounts){
-                        if (acc.get_id().equals(testSavingAccount)){
-                            savingsAccount=acc;
-                        }
-                        else if (acc.get_id().equals(testCheckingAccount)){
-                            checkingAccount=acc;
+                if (e == null) {
+                    ArrayList<Account> accounts = (ArrayList<Account>) o;
+                    for (Account acc : accounts) {
+                        if (acc.get_id().equals(testSavingAccount)) {
+                            savingsAccount = acc;
+                        } else if (acc.get_id().equals(testCheckingAccount)) {
+                            checkingAccount = acc;
                         }
                     }
-                }
-                else{
+
+                    mCallback.UpdateBalanceValues(checkingAccount, savingsAccount);
+                } else {
                     Log.d(TAG, "Did not get accounts");
                 }
+
+
             }
         });
+
     }
 
 }

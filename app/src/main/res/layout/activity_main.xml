@@ -11,6 +11,7 @@
         android:layout_alignLeft="@+id/button"
         android:layout_alignStart="@+id/button"
         android:layout_alignParentBottom="true"
+        android:id="@+id/moneyBalance"
         />
 
     <Button
