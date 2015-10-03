@@ -115,10 +115,10 @@ public class running extends Activity implements LocationListener {
                 double timedelta = System.currentTimeMillis()-startTimeTimer;
                 CaloriesBurned mCalories = new CaloriesBurned(kilos,(totalDistance/(timedelta*1000)),(timedelta/1000));
                 double calories = mCalories.calcCalories();
-                Double calories2 = (double)((int)calories*100)/100;
+                Double calories2 = (double)((int)(calories*100))/100;
                 TextView mView = (TextView) findViewById(R.id.caloriesburned);
                 mView.setText(calories2.toString()+" calories burned");
-                
+
 
             }
             lastLocation=location;
