@@ -2,11 +2,14 @@ package me.sharmashashank.runcentive;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
 import com.reimaginebanking.api.java.NessieClient;
 
 public class MainActivity extends Activity {
@@ -58,5 +61,9 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void buttonClickToRun(View view){
+        Intent intent = new Intent(this,running.class);
+
     }
 }
