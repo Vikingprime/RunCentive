@@ -1,16 +1,34 @@
 package me.sharmashashank.runcentive;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String TAG="MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    public String getApiKey(){
+        Context context=getApplicationContext();
+        Bundle bundle=null;
+        try {
+             bundle = context.getPackageManager().
+                    getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA).metaData;
+        }
+        catch(Exception ex){
+            Log.d(TAG, "Cannot find the key");
+        }
+        return bundle.getString("capital_one_key", "");
     }
 
     @Override
