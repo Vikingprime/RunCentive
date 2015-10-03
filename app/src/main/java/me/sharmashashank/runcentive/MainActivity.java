@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.reimaginebanking.api.java.NessieClient;
@@ -19,6 +20,7 @@ public class MainActivity extends Activity implements MoneyCallback {
     public static String TAG="MainActivity";
     public static NessieWrapper nessieWrapper;
     private Double checkingBalance=0.0;
+    Button startRunButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,8 @@ public class MainActivity extends Activity implements MoneyCallback {
         setContentView(R.layout.activity_main);
         initializeNessieClient();
         nessieWrapper.getAccounts(this);
+        startRunButton= (Button) findViewById(R.id.startrunbutton);
+        startRunButton.setClickable(false);
     }
 
     public void initializeNessieClient(){
@@ -61,7 +65,7 @@ public class MainActivity extends Activity implements MoneyCallback {
     }
     public void buttonClickToRun(View view){
         Intent intent = new Intent(this,running.class);
-
+        startActivity(intent);
     }
 
     @Override
@@ -69,5 +73,6 @@ public class MainActivity extends Activity implements MoneyCallback {
         checkingBalance=checkingAccount.getBalance();
         TextView textView = (TextView) findViewById(R.id.moneyBalance);
         textView.setText(checkingBalance.toString());
+        startRunButton.setClickable(true);
     }
 }
