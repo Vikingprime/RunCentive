@@ -96,7 +96,9 @@ public class running extends Activity implements LocationListener {
         catch(SecurityException ex){
 
         }
-
+        double moneyForNow=100;
+        NessieWrapper wrapper=NessieWrapper.getInstance();
+        wrapper.transferToChecking(moneyForNow);
     }
 
 
