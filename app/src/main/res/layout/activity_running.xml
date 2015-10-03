@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
-        android:id="@+id/avgSpeedTextView"
+        android:id="@+id/totalDistanceTextView"
         android:layout_below="@+id/timerTextView"
         android:layout_alignLeft="@+id/timerTextView"
         android:layout_alignStart="@+id/timerTextView"
@@ -33,8 +33,17 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/dollarsEarnedTxtView"
-        android:layout_below="@+id/avgSpeedTextView"
-        android:layout_alignRight="@+id/avgSpeedTextView"
-        android:layout_alignEnd="@+id/avgSpeedTextView"
+        android:layout_below="@+id/totalDistanceTextView"
+        android:layout_alignRight="@+id/totalDistanceTextView"
+        android:layout_alignEnd="@+id/totalDistanceTextView"
         android:layout_marginTop="111dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/stopButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="stopTheRun" />
 </RelativeLayout>
