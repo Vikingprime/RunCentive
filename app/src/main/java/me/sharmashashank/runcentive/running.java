@@ -3,6 +3,7 @@ package me.sharmashashank.runcentive;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -36,6 +37,8 @@ public class running extends Activity implements LocationListener {
     Location lastLocation;
     Double totalDistance=0.0;
     double kilos = 70;
+    double moneyForNow = 0;
+    double calorieFactor = 0.5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +103,8 @@ public class running extends Activity implements LocationListener {
         double moneyForNow=100;
         NessieWrapper wrapper=NessieWrapper.getInstance();
         wrapper.transferToChecking(moneyForNow);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("Money",moneyForNow);
     }
 
 
@@ -118,6 +123,9 @@ public class running extends Activity implements LocationListener {
                 Double calories2 = (double)((int)(calories*100))/100;
                 TextView mView = (TextView) findViewById(R.id.caloriesburned);
                 mView.setText(calories2.toString()+" calories burned");
+                moneyForNow = calories2*calorieFactor;
+                TextView MoneyView = (TextView) findViewById(R.id.MoneyEarned);
+                MoneyView.setText("$ "+((Double)moneyForNow).toString());
 
 
             }

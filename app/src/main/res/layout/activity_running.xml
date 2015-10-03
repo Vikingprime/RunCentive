@@ -44,7 +44,15 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/caloriesburned"
-        android:layout_above="@+id/totalDistanceTextView"
+        android:layout_marginTop="111dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Money Earned"
+        android:id="@+id/MoneyEarned"
+        android:layout_below="@+id/caloriesburned"
         android:layout_marginTop="111dp" />
 
     <Button
