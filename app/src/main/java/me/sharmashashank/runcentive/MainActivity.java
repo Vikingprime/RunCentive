@@ -1,24 +1,32 @@
 package me.sharmashashank.runcentive;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.reimaginebanking.api.java.NessieClient;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     public static String TAG="MainActivity";
+    NessieClient nessieClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initializeNessieClient();
     }
 
-    public String getApiKey(){
+    public void initializeNessieClient(){
+        nessieClient = NessieClient.getInstance();
+        nessieClient.setAPIKey(getApiKey());
+    }
+
+    private String getApiKey(){
         Context context=getApplicationContext();
         Bundle bundle=null;
         try {
