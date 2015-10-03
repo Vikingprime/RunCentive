@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -23,6 +24,7 @@ public class running extends Activity implements LocationListener {
     LocationManager mLocationManager;
     private final static String TAG=running.class.getName();
     Handler mHandler;
+    TextView timerDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +34,33 @@ public class running extends Activity implements LocationListener {
         Location location=null;
         Log.d(TAG, "Inside onCreate");
         mHandler= new Handler(Looper.getMainLooper());
+        timerDisplay = (TextView) findViewById(R.id.timerTextView);
+
+        showTimer();
+
         startClock(this);
     }
+
+    public void showTimer(){
+       final long startTimeTimer = System.currentTimeMillis();
+       Handler mClockHander = new Handler();
+        Runnable upDateTime = new Runnable(){
+            public void run(){
+                long timePassed = System.currentTimeMillis() - startTimeTimer;
+                int seconds = (int) (timePassed/1000);
+                int minutes = seconds/60;
+                seconds %= 60;
+
+                timerDisplay.setText(minutes +" : " + seconds);
+            }
+        };
+        upDateTime.run();
+        mClockHander.removeCallbacks(upDateTime);
+        mClockHander.postDelayed(upDateTime,500);
+
+    }
+
+
 
     public void startClock(final running runobj){
 
