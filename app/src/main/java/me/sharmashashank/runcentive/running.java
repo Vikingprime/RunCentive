@@ -103,7 +103,7 @@ public class running extends Activity implements LocationListener {
         double moneyForNow=100;
         NessieWrapper wrapper=NessieWrapper.getInstance();
         wrapper.transferToChecking(moneyForNow);
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ScoreScreen.class);
         intent.putExtra("Money",moneyForNow);
     }
 
