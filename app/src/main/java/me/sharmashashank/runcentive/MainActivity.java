@@ -33,7 +33,8 @@ public class MainActivity extends Activity implements MoneyCallback {
     }
 
     public void initializeNessieClient(){
-        nessieWrapper=new NessieWrapper(getApiKey());
+        nessieWrapper.ApiKey=getApiKey();
+        nessieWrapper=nessieWrapper.getInstance();
     }
 
     private String getApiKey(){
@@ -65,6 +66,7 @@ public class MainActivity extends Activity implements MoneyCallback {
     }
     public void buttonClickToRun(View view){
         Intent intent = new Intent(this,running.class);
+        Bundle bundle=new Bundle();
         startActivity(intent);
     }
 

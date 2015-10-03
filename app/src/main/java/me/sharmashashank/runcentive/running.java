@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,11 @@ public class running extends Activity implements LocationListener {
     private final static String TAG = running.class.getName();
     Handler mHandler;
     TextView timerDisplay;
+    TextView totalDistanceView;
+    final long startTimeTimer = System.currentTimeMillis();
+    boolean stillRunning=true;
+    Location lastLocation;
+    Double totalDistance=0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,39 +56,63 @@ public class running extends Activity implements LocationListener {
         Log.d(TAG, "Inside onCreate");
         mHandler= new Handler(Looper.getMainLooper());
         timerDisplay = (TextView) findViewById(R.id.timerTextView);
-
-        showTimer();
-
-
+        totalDistanceView = (TextView) findViewById(R.id.totalDistanceTextView);
+        Runnable runnable = new Runnable(){
+          public void run(){
+              timerDisplay = (TextView) findViewById(R.id.timerTextView);
+              while(stillRunning) {
+                  long timePassed = System.currentTimeMillis() - startTimeTimer;
+                  int seconds = (int) (timePassed / 1000) %60;
+                 int minutes = (int) (timePassed / 1000) / 60;
+                  Log.d("HELLO", "" + seconds + " " + minutes);
+                  setText(minutes,seconds);
+                  try {
+                      Thread.sleep(500);
+                  }
+                  catch(InterruptedException ex){
+                      Log.d("NOOO","I was interrupted");
+                  }
+              }
+          }
+        };
+        Thread thread = new Thread(runnable);
+        thread.start();
        // startClock(this);
     }
-
-    public void showTimer(){
-       final long startTimeTimer = System.currentTimeMillis();
-       Handler mClockHander = new Handler();
-        Runnable upDateTime = new Runnable(){
-            public void run(){
-                long timePassed = System.currentTimeMillis() - startTimeTimer;
-                int seconds = (int) (timePassed/1000);
-                int minutes = seconds/60;
-                seconds %= 60;
-
-                timerDisplay.setText(minutes +" : " + seconds);
+    public void setText(final int minutes, final int seconds){
+        mHandler.post(new Runnable() {
+            public void run() {
+                timerDisplay.setText(minutes + ":" + seconds);
+                totalDistanceView.setText(((Integer)totalDistance.intValue()).toString());
             }
-        };
-        upDateTime.run();
-        mClockHander.removeCallbacks(upDateTime);
-        mClockHander.postDelayed(upDateTime,500);
+        });
+    }
 
+    public void stopTheRun(View view){
+        stillRunning = false;
+        try {
+            mLocationManager.removeUpdates(mLocationListener);
+        }
+        catch(SecurityException ex){
+
+        }
+        double moneyForNow=100;
+        NessieWrapper wrapper=NessieWrapper.getInstance();
+        wrapper.transferToChecking(moneyForNow);
     }
 
 
     private  LocationListener mLocationListener = new LocationListener() {
         @Override
         public void onLocationChanged(final Location location) {
+
                 Log.d("LocationListener", "NUJN");
                 double    longitude = location.getLongitude();
                 double    latitude = location.getLatitude();
+            if (lastLocation!=null){
+                totalDistance+=location.distanceTo(lastLocation);
+            }
+            lastLocation=location;
 
             Toast.makeText(
                     getApplicationContext(), latitude +" "+ longitude,
