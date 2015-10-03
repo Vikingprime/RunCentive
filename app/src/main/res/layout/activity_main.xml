@@ -13,6 +13,9 @@
         android:layout_alignLeft="@+id/startrunbutton"
         android:layout_alignStart="@+id/startrunbutton"
         android:textAlignment="gravity"
+        android:textStyle="bold"
+        android:textSize="40dip"
+        android:textColor="#33CC33"
         android:id="@+id/moneyBalance"
         android:layout_alignRight="@+id/startrunbutton"
         android:layout_alignEnd="@+id/startrunbutton" />
@@ -21,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="buttonClickToRun"
-        android:text="New Run"
+        android:text=""
         android:id="@+id/startrunbutton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
