@@ -106,7 +106,8 @@ public class running extends Activity implements LocationListener {
                         }
                         //Thread.sleep(timeStep);
                     }
-                } catch (InterruptedException e) {
+                } catch (InterruptedException ie) {
+                    ie.printStackTrace();
                 }
             }
         };
