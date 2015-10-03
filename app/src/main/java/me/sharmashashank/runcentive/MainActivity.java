@@ -3,16 +3,14 @@ package me.sharmashashank.runcentive;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.reimaginebanking.api.java.NessieClient;
 import com.reimaginebanking.api.java.models.Account;
 
 public class MainActivity extends Activity implements MoneyCallback {
@@ -30,6 +28,11 @@ public class MainActivity extends Activity implements MoneyCallback {
         nessieWrapper.getAccounts(this);
         startRunButton= (Button) findViewById(R.id.startrunbutton);
         startRunButton.setClickable(false);
+//    RelativeLayout rl = (RelativeLayout) findViewById(R.id.testLayout);
+//        rl.setBackground(getResources().getDrawable(R.drawable.road3));
+
+
+
     }
 
     public void initializeNessieClient(){
@@ -74,7 +77,7 @@ public class MainActivity extends Activity implements MoneyCallback {
     public void UpdateBalanceValues(Account checkingAccount, Account savingsAccuont) {
         checkingBalance=checkingAccount.getBalance();
         TextView textView = (TextView) findViewById(R.id.moneyBalance);
-        textView.setText(checkingBalance.toString());
+        textView.setText("$" + checkingBalance.toString());
         startRunButton.setClickable(true);
     }
     public void mButtonIwillTakeOut(View view){
