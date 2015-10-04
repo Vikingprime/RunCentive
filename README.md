@@ -1,2 +1,2 @@
 # MySweetTooth
-Application that deposits cash into "Sweet Tooth" bank account based on calories burned.
+Application that deposits cash into your "guilt free" bank account based on calories burned.
