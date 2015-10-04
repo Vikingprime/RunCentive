@@ -110,7 +110,7 @@ public class running extends Activity implements LocationListener {
             mLocationManager.removeUpdates(mLocationListener);
         }
         catch(SecurityException ex){
-
+            Log.d(TAG, "Could not stop the run");
         }
         NessieWrapper wrapper=NessieWrapper.getInstance();
         wrapper.transferToChecking(moneyForNow);
@@ -237,6 +237,12 @@ public class running extends Activity implements LocationListener {
 
     @Override
     public void onBackPressed(){
+        try {
+            mLocationManager.removeUpdates(mLocationListener);
+        }
+        catch(SecurityException ex){
+            Log.d(TAG, "Cannot stop updates");
+        }
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
