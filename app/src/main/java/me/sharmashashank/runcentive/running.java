@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -39,6 +40,7 @@ public class running extends Activity implements LocationListener {
     double kilos = 70;
     double moneyForNow = 0;
     double calorieFactor = 0.5;
+    Handler colorChangeHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class running extends Activity implements LocationListener {
         setContentView(R.layout.activity_running);
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location = null;
+
 
         mHandler = new Handler(Looper.getMainLooper());
         try {
@@ -96,7 +99,7 @@ public class running extends Activity implements LocationListener {
                     sec="0"+sec;
                 }
                 timerDisplay.setText(min + ":" + sec);
-                totalDistanceView.setText(((Integer)totalDistance.intValue()).toString());
+                totalDistanceView.setText(((Integer)totalDistance.intValue()).toString() + " m");
             }
         });
     }
@@ -132,10 +135,21 @@ public class running extends Activity implements LocationListener {
                     double calories = mCalories.calcCalories();
                     Double calories2 = (double) ((int) (calories * 100)) / 100;
                     TextView mView = (TextView) findViewById(R.id.caloriesburned);
-                    mView.setText(calories2.toString() + " calories burned");
+                    mView.setText(calories2.toString() + " calories");
                     moneyForNow = calories2 * calorieFactor;
-                    TextView MoneyView = (TextView) findViewById(R.id.MoneyEarned);
+                    final TextView MoneyView = (TextView) findViewById(R.id.MoneyEarned);
                     MoneyView.setText("$ " + String.format("%.2f", moneyForNow));
+                    MoneyView.setTextColor(Color.GREEN);
+                    colorChangeHandler = new Handler();
+
+                    Runnable r = new Runnable(){
+                        public void run(){
+                            MoneyView.setTextColor(Color.BLACK);
+                        }
+                    };
+
+                    colorChangeHandler.postDelayed(r, 2000);
+
                 }
 
             }

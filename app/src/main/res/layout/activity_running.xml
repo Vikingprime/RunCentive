@@ -81,5 +81,7 @@
         android:scaleType="fitCenter"
         android:background="@android:color/transparent"
         android:src="@drawable/stop"
-        android:layout_weight="0.43" />
+        android:layout_weight="0.43"
+        android:clickable="true"
+        android:onClick="stopTheRun" />
 </LinearLayout>
