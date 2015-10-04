@@ -91,7 +91,7 @@ public class MainActivity extends Activity implements MoneyCallback {
             bal += intent.getDoubleExtra("Money",0);
         }
         String balance=String.format("%.2f", bal);
-        textView.setText("$ " + balance);
+        textView.setText("$" + balance);
         startRunButton.setClickable(true);
     }
     public void mButtonIwillTakeOut(View view){
