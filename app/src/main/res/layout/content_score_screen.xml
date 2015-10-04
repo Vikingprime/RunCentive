@@ -10,4 +10,32 @@
     tools:showIn="@layout/activity_score_screen"
     tools:context="me.sharmashashank.runcentive.ScoreScreen">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/congratsTextView"
+        android:textSize="32dp"
+        android:gravity="center"
+        android:text = "Money Earned"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="goToTwitter"
+        android:background="@drawable/tweet"
+        android:id="@+id/tweetButton"
+        android:layout_below="@+id/doneBtn"
+        android:layout_alignRight="@+id/congratsTextView"
+        android:layout_alignEnd="@+id/congratsTextView" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done!"
+        android:id="@+id/doneBtn"
+        android:onClick="doneMethod"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

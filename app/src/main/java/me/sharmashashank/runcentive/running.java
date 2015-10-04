@@ -100,11 +100,11 @@ public class running extends Activity implements LocationListener {
         catch(SecurityException ex){
 
         }
-        double moneyForNow=100;
         NessieWrapper wrapper=NessieWrapper.getInstance();
         wrapper.transferToChecking(moneyForNow);
         Intent intent = new Intent(this, ScoreScreen.class);
-        intent.putExtra("Money",moneyForNow);
+        intent.putExtra("Money", moneyForNow);
+        startActivity(intent);
     }
 
 
@@ -116,17 +116,18 @@ public class running extends Activity implements LocationListener {
                 double    longitude = location.getLongitude();
                 double    latitude = location.getLatitude();
             if (lastLocation!=null){
-                totalDistance+=location.distanceTo(lastLocation);
                 double timedelta = System.currentTimeMillis()-startTimeTimer;
-                CaloriesBurned mCalories = new CaloriesBurned(kilos,(totalDistance/(timedelta*1000)),(timedelta/1000));
-                double calories = mCalories.calcCalories();
-                Double calories2 = (double)((int)(calories*100))/100;
-                TextView mView = (TextView) findViewById(R.id.caloriesburned);
-                mView.setText(calories2.toString()+" calories burned");
-                moneyForNow = calories2*calorieFactor;
-                TextView MoneyView = (TextView) findViewById(R.id.MoneyEarned);
-                MoneyView.setText("$ "+((Double)moneyForNow).toString());
-
+                if (location.distanceTo(lastLocation) >= 4 || timedelta<5000 ) {
+                    totalDistance += location.distanceTo(lastLocation);
+                    CaloriesBurned mCalories = new CaloriesBurned(kilos, (totalDistance / (timedelta * 1000)), (timedelta / 1000));
+                    double calories = mCalories.calcCalories();
+                    Double calories2 = (double) ((int) (calories * 100)) / 100;
+                    TextView mView = (TextView) findViewById(R.id.caloriesburned);
+                    mView.setText(calories2.toString() + " calories burned");
+                    moneyForNow = calories2 * calorieFactor;
+                    TextView MoneyView = (TextView) findViewById(R.id.MoneyEarned);
+                    MoneyView.setText("$ " + String.format("%.2f", moneyForNow));
+                }
 
             }
             lastLocation=location;
