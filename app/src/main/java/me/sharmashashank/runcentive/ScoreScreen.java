@@ -40,7 +40,7 @@ public class ScoreScreen extends Activity {
     public void goToTwitter (View view) {
         Log.d("ScoreScreen", "Going to Twitter(hopefully)");
         String val=String.format("%.2f", money);
-        String url = "https://twitter.com/home?status=I%20just%20earned%20"
+        String url = "https://twitter.com/home?status=I%20just%20earned%20$"
         +val+"%20of%20guilt%20free%20spending%20money%20with%20Runcentive!%20";
         Log.d("ScoreScreen", url);
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
