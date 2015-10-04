@@ -1,7 +1,7 @@
 ﻿console.log("hello");
 var data = [{dist:0, time:0}];
 var scalex, scaley, xaxis, yaxis, svg, valueline, ctime, ptime;
-var margin = {top: 20, right: 20, bottom: 30, left: 30};
+var margin = {top: 20, right: 50, bottom: 60, left: 50};
 ptime=0;
 ctime=0;
 window.onload = function() {
@@ -40,12 +40,12 @@ function newData(t, d) {
 };
 
 function setUp() {
-	svg = d3.select("svg").attr("width", function() {return window.innerWidth;})
-										.attr("height", function() {return window.innerHeight / 2;});
+	svg = d3.select("svg").attr("width", function() {return window.innerWidth * 0.9;})
+										.attr("height", function() {return window.innerHeight;});
 	scalex = d3.scale.linear()
 						.range([0, window.innerWidth - margin.left - margin.right]);
 	scaley = d3.scale.linear()
-						.range([(window.innerHeight / 2) - margin.top - margin.bottom, 0]);
+						.range([(window.innerHeight) - margin.top - margin.bottom, 0]);
 	xaxis = d3.svg.axis()
 					.scale(scalex)
 					.orient("bottom")
@@ -59,7 +59,7 @@ function setUp() {
 	// Add the X Axis
     svg.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(" + margin.left + ","  + ((window.innerHeight / 2) - margin.bottom) + ")")
+        .attr("transform", "translate(" + margin.left + ","  + ((window.innerHeight) - margin.bottom) + ")")
         .call(xaxis);
 
     // Add the Y Axis
