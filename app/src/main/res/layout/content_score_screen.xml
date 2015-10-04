@@ -18,24 +18,40 @@
         android:gravity="center"
         android:text = "Money Earned"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:layout_width="175dp"
+        android:layout_height="87dp"
+        android:onClick="goToFacebook"
+        android:src="@drawable/facebook"
+        android:id="@+id/facebookButton"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        android:contentDescription="Share this on Facebook"
+        android:layout_centerVertical="true" />
+
+    <ImageButton
+        android:layout_width="175dp"
+        android:layout_height="87dp"
         android:onClick="goToTwitter"
-        android:background="@drawable/tweet"
+        android:src="@drawable/tweet"
         android:id="@+id/tweetButton"
-        android:layout_below="@+id/doneBtn"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        android:contentDescription="Tweet this"
+        android:layout_centerVertical="true"
         android:layout_alignRight="@+id/congratsTextView"
         android:layout_alignEnd="@+id/congratsTextView" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Done!"
-        android:id="@+id/doneBtn"
+    <ImageButton
+        android:layout_width="175dp"
+        android:layout_height="87dp"
         android:onClick="doneMethod"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:src="@drawable/tickmark"
+        android:id="@+id/doneBtn"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        android:contentDescription="Done!"
+        android:layout_below="@+id/tweetButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="62dp" />
 </RelativeLayout>
