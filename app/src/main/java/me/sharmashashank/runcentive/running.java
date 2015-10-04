@@ -54,7 +54,11 @@ public class running extends Activity implements
         setContentView(R.layout.activity_running);
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location = null;
-
+        Intent intent = getIntent();
+        if (intent != null) {
+            kilos = intent.getDoubleExtra("Weight",70);
+            calorieFactor = intent.getDoubleExtra("Ratio", .5);
+        }
         mHandler = new Handler(Looper.getMainLooper());
 //        try {
 //
