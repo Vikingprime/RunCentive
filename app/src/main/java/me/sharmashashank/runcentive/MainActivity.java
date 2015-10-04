@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,11 +21,13 @@ public class MainActivity extends Activity implements MoneyCallback {
     public static NessieWrapper nessieWrapper;
     private Double checkingBalance=0.0;
     Button startRunButton;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        intent = getIntent();
         initializeNessieClient();
         nessieWrapper.getAccounts(this);
         startRunButton= (Button) findViewById(R.id.startrunbutton);
@@ -78,7 +81,12 @@ public class MainActivity extends Activity implements MoneyCallback {
     public void UpdateBalanceValues(Account checkingAccount, Account savingsAccuont) {
         checkingBalance=checkingAccount.getBalance();
         TextView textView = (TextView) findViewById(R.id.moneyBalance);
-        textView.setText("$" + checkingBalance.toString());
+        double bal = checkingBalance;
+        if (intent != null ){
+            bal += intent.getDoubleExtra("Money",0);
+        }
+        String balance=String.format("%.2f", bal);
+        textView.setText("$ " + balance);
         startRunButton.setClickable(true);
     }
     public void mButtonIwillTakeOut(View view){
