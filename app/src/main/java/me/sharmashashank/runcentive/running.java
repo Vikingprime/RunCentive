@@ -87,7 +87,15 @@ public class running extends Activity implements LocationListener {
     public void setText(final int minutes, final int seconds){
         mHandler.post(new Runnable() {
             public void run() {
-                timerDisplay.setText(minutes + ":" + seconds);
+                String min=Integer.toString(minutes);
+                String sec=Integer.toString(seconds);
+                if (minutes<10){
+                    min="0"+min;
+                }
+                if (seconds<10){
+                    sec="0"+sec;
+                }
+                timerDisplay.setText(min + ":" + sec);
                 totalDistanceView.setText(((Integer)totalDistance.intValue()).toString());
             }
         });
