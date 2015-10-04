@@ -27,7 +27,7 @@ public class ScoreScreen extends Activity {
         money = intent.getDoubleExtra("Money", 45);
 
         TextView displayMoney = (TextView) findViewById(R.id.congratsTextView);
-        displayMoney.setText("Congratulation! You just earned yourself $" + money +
+        displayMoney.setText("Congratulations! You just earned yourself $" + money +
                 " of guilt free money");
 
 

@@ -113,7 +113,7 @@ public class MainActivity extends ActionBarActivity implements MoneyCallback {
             bal += intent.getDoubleExtra("Money",0);
         }
         String balance=String.format("%.2f", bal);
-        textView.setText("$ " + balance);
+        textView.setText("$" + balance);
         startRunButton.setClickable(true);
     }
 
