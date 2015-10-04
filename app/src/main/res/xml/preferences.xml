@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <EditTextPreference
+        android:key="weight"
+        android:id = "@+id/weightPrefEditText"
+        android:title = "Enter Weight"
+        android:gravity = "center_horizontal"
+        android:defaultValue="70"
+        android:inputType="number"
+        />
+
+    <EditTextPreference
+        android:key="calRatio"
+        android:id = "@+id/ratioPrefEditText"
+        android:title = "Calories to Dollar Ratio"
+        android:background="#FFFFFF"
+        android:defaultValue=".5"
+        android:inputType="number"
+        />
+
+</PreferenceScreen>

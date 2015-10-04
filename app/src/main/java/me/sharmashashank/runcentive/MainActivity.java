@@ -3,7 +3,11 @@ package me.sharmashashank.runcentive;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,7 +19,7 @@ import android.widget.Toast;
 
 import com.reimaginebanking.api.java.models.Account;
 
-public class MainActivity extends Activity implements MoneyCallback {
+public class MainActivity extends ActionBarActivity implements MoneyCallback {
 
     public static String TAG="MainActivity";
     public static NessieWrapper nessieWrapper;
@@ -23,10 +27,17 @@ public class MainActivity extends Activity implements MoneyCallback {
     Button startRunButton;
     Intent intent;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+        PreferenceManager.setDefaultValues(this,
+                R.xml.preferences,
+                false);
+
         intent = getIntent();
         initializeNessieClient();
         nessieWrapper.getAccounts(this);
@@ -68,6 +79,8 @@ public class MainActivity extends Activity implements MoneyCallback {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        Intent intent = new Intent (this, SettingsActivity.class);
+        startActivity(intent);
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
@@ -76,9 +89,18 @@ public class MainActivity extends Activity implements MoneyCallback {
 
         return super.onOptionsItemSelected(item);
     }
-    public void buttonClickToRun(View view){
+
+
+    public void buttonClickToRun(View view) {
+        SharedPreferences   prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+        double ratio = Double.parseDouble(prefs.getString(SettingsActivity.CAL_RATIO, ""+0.50));
+        double weight =Double.parseDouble(prefs.getString(SettingsActivity.WEIGHT, ""+70));
+
         Intent intent = new Intent(this,running.class);
-        Bundle bundle=new Bundle();
+        intent.putExtra("Weight", weight);
+        intent.putExtra("Ratio" , ratio);
+        Log.d("Prefs", weight + " " +ratio);
         startActivity(intent);
     }
 
@@ -94,9 +116,5 @@ public class MainActivity extends Activity implements MoneyCallback {
         textView.setText("$ " + balance);
         startRunButton.setClickable(true);
     }
-    public void mButtonIwillTakeOut(View view){
-        Toast.makeText(this, "HelloONE",Toast.LENGTH_LONG);
-        Intent intent = new Intent(this,LocationUpdater.class);
-        startActivity(intent);
-    }
+
 }
