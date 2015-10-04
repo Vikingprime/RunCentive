@@ -52,6 +52,7 @@ public class running extends Activity implements LocationListener {
 
             mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
             mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, mLocationListener);
+            mLocationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER,0,0,mLocationListener);
         }
         catch(SecurityException ex){
             ex.printStackTrace();

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.reimaginebanking.api.java.models.Account;
 
@@ -81,6 +82,7 @@ public class MainActivity extends Activity implements MoneyCallback {
         startRunButton.setClickable(true);
     }
     public void mButtonIwillTakeOut(View view){
+        Toast.makeText(this, "HelloONE",Toast.LENGTH_LONG);
         Intent intent = new Intent(this,LocationUpdater.class);
         startActivity(intent);
     }

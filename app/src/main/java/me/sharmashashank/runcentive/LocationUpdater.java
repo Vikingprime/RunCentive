@@ -27,7 +27,10 @@ LocationListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_updater);
+
+        Toast.makeText(this, "Hello", Toast.LENGTH_LONG);
         buildGoogleApiClient();
+        Toast.makeText(this, "Hello2", Toast.LENGTH_LONG);
 
     }
     protected synchronized void buildGoogleApiClient() {
@@ -40,6 +43,8 @@ LocationListener{
 
     @Override
     public void onConnected(Bundle bundle) {
+
+        Toast.makeText(this, "Hello3", Toast.LENGTH_LONG);
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
         if (mLastLocation != null) {
