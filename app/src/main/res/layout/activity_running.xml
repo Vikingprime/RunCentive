@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Money Earned"
+        android:text="$0.00"
         android:textStyle="bold"
         android:textSize="42dp"
         android:gravity="center"
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Timer"
+        android:text="00:00"
         android:id="@+id/timerTextView"
         android:layout_marginTop="50dp"
         android:layout_alignParentTop="true"
@@ -33,11 +33,15 @@
         android:layout_gravity="center"
         android:layout_centerHorizontal="true" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/RelativeLayout01"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
+
         android:orientation="horizontal"
-        android:gravity="bottom"
+
 
 
         >
@@ -46,9 +50,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="total distance"
+        android:text="0 m"
         android:id="@+id/totalDistanceTextView"
-        android:paddingRight="30px"
+        android:layout_alignParentLeft="true"
+
+
 
         android:layout_marginTop="50dp" />
 
@@ -58,11 +64,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Calories Burned"
-        android:id="@+id/caloriesburned"
+        android:text=" 0 Calories"
+            android:layout_alignParentRight="true"
+            android:id="@+id/caloriesburned"
         android:layout_marginTop="50dp" />
 
-    </LinearLayout>
+    </RelativeLayout>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,5 +80,6 @@
         android:layout_gravity="center"
         android:width="16px"
         android:height="16px"
+
         android:onClick="stopTheRun" />
 </LinearLayout>
