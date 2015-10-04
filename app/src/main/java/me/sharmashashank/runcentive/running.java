@@ -234,4 +234,10 @@ public class running extends Activity implements LocationListener {
     public void onProviderDisabled(String provider) {
 
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+    }
 }
