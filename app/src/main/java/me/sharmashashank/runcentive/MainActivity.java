@@ -39,6 +39,11 @@ public class MainActivity extends Activity implements MoneyCallback {
 
     }
 
+    @Override
+    public void onBackPressed(){
+        super.onDestroy();
+    }
+
     public void initializeNessieClient(){
         nessieWrapper.ApiKey=getApiKey();
         nessieWrapper=nessieWrapper.getInstance();

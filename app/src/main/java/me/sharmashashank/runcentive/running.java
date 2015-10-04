@@ -139,7 +139,7 @@ public class running extends Activity implements LocationListener {
                     moneyForNow = calories2 * calorieFactor;
                     final TextView MoneyView = (TextView) findViewById(R.id.MoneyEarned);
                     MoneyView.setText("$ " + String.format("%.2f", moneyForNow));
-                    MoneyView.setTextColor(Color.GREEN);
+                    MoneyView.setTextColor(Color.parseColor("#006400"));
                     colorChangeHandler = new Handler();
 
                     Runnable r = new Runnable(){
